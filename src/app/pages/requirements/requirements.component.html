@@ -1,0 +1,73 @@
+<h1>{{title}}</h1>
+<p>Welcome to the coding challenge portion of the interview. Below is a problem we would like for
+  you to solve using the latest version of Angular. Feel free to make assumptions as needed, but
+  do list them in a Readme. We would like you to complete the problem using Test Driven
+  Development ensuring there is high test coverage.</p>
+<p>Hello! Our team area is too quiet. We’d like to listen to some music. Each team member has
+  selected their favorite tracks and are providing them to you in priority order. We have two half
+  hour sections of the day to fill with music. Not all team members are present for both thirty
+  minute sections and we do not want to play their music if they aren’t in the team area. We also
+  do not want songs to be playing across the section boundaries. Having a period of time at the
+  end of a section where no music is playing is acceptable, but we would prefer hearing another
+  song if possible. Outside of each 30 minute section, our team area needs to be quiet.</p>
+<ul>
+  <li>Songs should be played in priority order when possible.</li>
+  <li>There is no priority or order between the team members.</li>
+  <li>Play a song from each person before another song from the same person.</li>
+  <li>Songs should not be scheduled if they will not finish playing within the 30 minute time boundary.</li>
+  <li>Do not play songs from people who are not present during that time section.</li>
+  <li>Complete playing all songs of all present people before repeating songs.</li>
+  <li>Input will be song name and artist, duration (M:SS), and contain the name of the person who added the song.</li>
+  <li>You are provided with input data which should be submitted through a form in the browser of an Angular application</li>
+  <li>The output should be displayed in the browser of the Angular application</li>
+  <li>We are looking for clean, easy to maintain, production quality code. A simple solution that runs properly is preferred over a complicated gold plated solution.</li>
+</ul>
+<p>Here is a sample input and output:</p>
+<p><strong>Input Text:</strong></p>
+<pre>When I Come Around - Green Day 3:25 added by Johnny
+Otherside - Red Hot Chili Peppers 4:23 added by Johnny
+Good - Better Than Ezra 3:14 added by Johnny
+Last Kiss - Pearl Jam 3:55 added by Johnny
+Santa Monica - Everclear 4:12 added by Johnny
+Out of My Head - Fastball 4:15 added by Clint
+Cumbersome - Seven Mary Three 3:10 added by Clint
+Low - Cracker 4:30 added by Clint
+Fluorescent Adolescent - Arctic Monkeys 5:00 added by Clint
+Steady as She Goes - The Raconteurs 3:45 added by Clint
+Last Nite - The Strokes 4:25 added by Lisa
+Lydia - Highly Suspect 4:44 added by Lisa
+Big Me - Foo Fighters 2:20 added by Lisa
+Bleed American - Jimmy Eat World 3:32 added by Lisa
+Creep - Stone Temple Pilots 5:15 added by Lisa
+Come As You Are - Nirvana 5:03 added by Lisa
+Johnny is available for section 1
+Clint is available for section 1 and 2
+Lisa is available for section 1 and 2
+</pre>
+<pre>{{rawImportText}}</pre>
+<p><strong>Possible Output:</strong></p>
+<p>
+  The first 30 minutes will be:
+</p>
+<ol>
+  <li>When I Come Around - Green Day</li>
+  <li>Out of My Head - Fastball</li>
+  <li>Last Nite - The Strokes</li>
+  <li>Otherside - Red Hot Chili Peppers</li>
+  <li>Cumbersome - Seven Mary Three</li>
+  <li>Lydia - Highly Suspect</li>
+  <li>Good - Better Than Ezra</li>
+  <li>Big Me - Foo Fighters</li>
+</ol>
+<p>
+  The final 30 minutes will be:
+</p>
+<ol>
+  <li>Low - Cracker</li>
+  <li>Bleed American - Jimmy Eat World</li>
+  <li>Fluorescent Adolescent - Arctic Monkeys</li>
+  <li>Creep - Stone Temple Pilots</li>
+  <li>Steady as She Goes - The Raconteurs</li>
+  <li>Come As You Are - Nirvana</li>
+  <li>Big Me - Foo Fighters</li>
+</ol>
