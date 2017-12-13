@@ -1,7 +1,15 @@
 export class Song {
-  id: number;
+  constructor(name: string= '', artist: string= '', duration: string= '0:00', teamMember: string= ''){
+    this.name = name;
+    this.artist = artist;
+    this.setDuration(duration);
+    this.teamMember = teamMember;
+  }
+
+  // id: number;
   name: string;
   artist: string;
+  teamMember: string;
   durationSeconds: number;
 
   getDuration() {
