@@ -2,14 +2,31 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SongListsComponent } from './song-lists.component';
 import {AppComponent} from '../../app.component';
+import {TeamMemberService} from '../../services/team-member.service';
+import {SongService} from '../../services/song.service';
+import {SongList} from '../../model/song-list';
+import {Song} from '../../model/song';
 
 describe('SongListsComponent', () => {
   let component: SongListsComponent;
   let fixture: ComponentFixture<SongListsComponent>;
+  class SongServiceStub {
+    songs: Song[] = [];
+    songLists: SongList[] = [];
+    generateSongLists() {
+      return [];
+    }
+  }
+
+  const teamMemberServiceStub = {
+    members: []
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SongListsComponent ]
+      declarations: [ SongListsComponent ],
+      providers: [ {provide: SongService, useClass: SongServiceStub},
+        {provide: TeamMemberService, useValue: teamMemberServiceStub}]
     })
     .compileComponents();
   }));

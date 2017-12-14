@@ -20,7 +20,7 @@ describe('SongService', () => {
   }));
 
   it('should add one song', inject([SongService], (service: SongService) => {
-    let s = new Song('When I Come Around', 'Green Day', '3:25', 'Johnny');
+    const s = new Song('When I Come Around', 'Green Day', '3:25', 'Johnny');
     service.add(s);
     expect(service.songs.length).toBe(1);
   }));

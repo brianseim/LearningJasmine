@@ -1,1 +1,8 @@
 <h1>{{title}}</h1>
+<button (click)="loadTestData();" class="btn btn-default">Load Test Data</button>
+<div *ngFor="let songlist of songLists; let i = index">
+  <h2 *ngIf="songlist">Section {{i}} Song List</h2>
+    <ol *ngIf="songlist">
+      <li *ngFor="let song of songlist.songs">{{song.name}} - {{song.artist}} </li>
+    </ol>
+</div>

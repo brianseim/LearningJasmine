@@ -1,15 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SongEntryComponent } from './song-entry.component';
-import {AppComponent} from '../../app.component';
+import {SongService} from '../../services/song.service';
+import {TeamMemberService} from '../../services/team-member.service';
 
 describe('SongEntryComponent', () => {
   let component: SongEntryComponent;
   let fixture: ComponentFixture<SongEntryComponent>;
+  const songServiceStub = {
+    songs: [],
+    songLists: []
+  };
+  const teamMemberServiceStub = {
+    members: []
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SongEntryComponent ]
+      declarations: [ SongEntryComponent ],
+      providers: [ {provide: SongService, useValue: songServiceStub},
+         {provide: TeamMemberService, useValue: teamMemberServiceStub}]
     })
     .compileComponents();
   }));
@@ -23,15 +33,15 @@ describe('SongEntryComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it(`should have as title 'Song Entry Form'`, async(() => {
+  it(`should have as title 'Song Management Form'`, async(() => {
     const fixture = TestBed.createComponent(SongEntryComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('Song Entry Form');
+    expect(app.title).toEqual('Song Management Form');
   }));
   it('should render title in a h1 tag', async(() => {
     const fixture = TestBed.createComponent(SongEntryComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Song Entry Form');
+    expect(compiled.querySelector('h1').textContent).toContain('Song Management Form');
   }));
 });

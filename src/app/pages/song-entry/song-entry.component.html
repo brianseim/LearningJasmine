@@ -1,1 +1,11 @@
 <h1>{{title}}</h1>
+<button (click)="loadTestData();" class="btn btn-default">Load Test Data</button>
+<h2 *ngIf="songs.length">Songs</h2>
+<ul>
+  <li *ngFor="let song of songs">{{song.name}} - {{song.artist}} {{song.getDuration()}} added by {{song.teamMember}}</li>
+</ul>
+
+<h2 *ngIf="team.length">Team Members & Sections</h2>
+<ul>
+  <li *ngFor="let member of team">{{member.name}} is in sections: {{member.sections.join(", ")}}</li>
+</ul>
