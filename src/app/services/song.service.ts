@@ -29,45 +29,38 @@ export class SongService {
 
     const userSongs: SongList[] = [];
     for (let ii = 0; ii < team.length; ii++){
-      userSongs[team[ii].name] = new SongList(this.getTeamMemberSongList(team[ii].name));
+      team[ii].songs = this.getTeamMemberSongList(team[ii].name);
+      userSongs[team[ii].name] = new SongList(team[ii].songs);
     }
 
     // Assumption: there are only two sections - if this were to change we should make a section model...
-    for (let sectionNumber = 1; sectionNumber < 3; sectionNumber++){ // loop through 2 sections
+    for (let sectionNumber = 1; sectionNumber < 3; sectionNumber++) { // loop through 2 sections
       const sectionTeam = team.filter(function(el){ return el.sections.indexOf(sectionNumber) >= 0; });
-      const songList = new SongList([]);
-
-      let sectionSongCount = 0;
-      for (let mm = 0; mm < sectionTeam.length; mm++) {
-        sectionSongCount += userSongs[sectionTeam[mm].name].songs.length;
-      }
-
-      let songTooLongCounter = 0;
+      const sectionSongList = new SongList([]);
       let remainingTime = 30 * 60;
 
-
-      while (remainingTime > 0) {
-        for (let kk = 0; kk < sectionTeam.length; kk++) {
-          if (songTooLongCounter >= sectionSongCount) {
-            break;
+      let usersWithNoSuitableSong = 0;
+      while (usersWithNoSuitableSong < sectionTeam.length) {
+        for (let jj = 0; jj < sectionTeam.length; jj++){
+          const currentUsersSongList = userSongs[sectionTeam[jj].name];
+          const startingIndex = currentUsersSongList.pointerIndex;
+          let newIndex = -1;
+          while (currentUsersSongList.currentSong().durationSeconds > remainingTime && startingIndex !== newIndex) {
+            currentUsersSongList.incrementPointerUnused();
+            newIndex = currentUsersSongList.pointerIndex;
           }
-          const currentSong = userSongs[sectionTeam[kk].name].currentSong();
-          if (currentSong.durationSeconds < remainingTime && !currentSong.used) {
-            userSongs[sectionTeam[kk].name].useSong();
-            songList.add(currentSong);
-            remainingTime -= currentSong.durationSeconds;
+          if (currentUsersSongList.currentSong().durationSeconds <= remainingTime) {
+            sectionSongList.add(currentUsersSongList.currentSong());
+            remainingTime -= currentUsersSongList.currentSong().durationSeconds;
+            currentUsersSongList.useSong();
           } else {
-            songTooLongCounter++;
+            usersWithNoSuitableSong++;
           }
-
-          userSongs[sectionTeam[kk].name].incrementPointer();
-        }
-        if (songTooLongCounter >= sectionSongCount) {
-          remainingTime = -1;
+          currentUsersSongList.resetPointer();
         }
       }
 
-      this.songLists[sectionNumber] = songList;
+      this.songLists[sectionNumber] = sectionSongList;
     }
     return this.songLists;
   }

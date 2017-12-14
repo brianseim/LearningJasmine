@@ -21,7 +21,6 @@ export class SongList {
 
   useSong() {
     this.currentSong().used = true;
-    this.incrementPointer();
   }
 
   incrementPointer() {
@@ -31,13 +30,13 @@ export class SongList {
     }
   }
 
-  incrementPointerToUnused() {
+  incrementPointerUnused() {
     if (this.isAllUsed()) {
       this.resetPointer();
     } else {
-      while(this.currentSong().used) {
+      do {
         this.incrementPointer();
-      }
+      } while (this.currentSong().used);
     }
   }
 
@@ -54,7 +53,7 @@ export class SongList {
     } else {
       this.pointerIndex = this.songs.map( (s) => {
         return s.used;
-      }).indexOf(true);
+      }).indexOf(false);
     }
   }
 }
