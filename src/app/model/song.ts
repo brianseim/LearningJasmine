@@ -11,6 +11,7 @@ export class Song {
   artist: string;
   teamMember: string;
   durationSeconds: number;
+  used = false;
 
   getDuration() {
     try {

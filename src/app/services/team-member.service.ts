@@ -15,10 +15,16 @@ export class TeamMemberService {
     this.members.splice(this.members.indexOf(removeMember), 1);
   }
 
-  loadDefaultData(){
+  loadTestData(){
     this.members = [];
-    this.members.push(new TeamMember('Johnny', [1]));
-    this.members.push(new TeamMember('Clint', [1, 2]));
-    this.members.push(new TeamMember('Lisa', [1, 2]));
+    this.add(new TeamMember('Johnny', [1]));
+    this.add(new TeamMember('Clint', [1, 2]));
+    this.add(new TeamMember('Lisa', [1, 2]));
+  }
+
+  getMembersForSection(sectionNumber: number){
+    return this.members.filter(function(el){
+      return el.sections.indexOf(sectionNumber) >= 0;
+    });
   }
 }
