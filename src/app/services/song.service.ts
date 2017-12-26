@@ -18,56 +18,61 @@ export class SongService {
     this.songs.splice(this.songs.indexOf(song), 1);
   }
 
+  generateSongLists(team: TeamMember[]): SongList[] {
+    this.songLists = [];
+
+    const userSongs: SongList[] = this.createUserSongLists(team);
+
+    // Assumption: there are only two sections - if this were to change we should make a section model...
+    for (let sectionNumber = 1; sectionNumber < 3; sectionNumber++) { // loop through 2 sections
+      const teamForSection = team.filter(function(el){ return el.sections.indexOf(sectionNumber) >= 0; }); // who is present in this section?
+      this.songLists[sectionNumber] = this.createNextSectionSongList(userSongs, teamForSection);
+    }
+    return this.songLists;
+  }
+
   getTeamMemberSongList(name: string){
     return this.songs.filter(function(el){
       return el.teamMember === name;
     });
   }
 
-  generateSongLists(team: TeamMember[]): SongList[] {
-    this.songLists = [];
-
+  private createUserSongLists(team: TeamMember[]) {
     const userSongs: SongList[] = [];
-    for (let ii = 0; ii < team.length; ii++){
+    for (let ii = 0; ii < team.length; ii++) {
       team[ii].songs = this.getTeamMemberSongList(team[ii].name);
       userSongs[team[ii].name] = new SongList(team[ii].songs);
     }
-
-    // Assumption: there are only two sections - if this were to change we should make a section model...
-    for (let sectionNumber = 1; sectionNumber < 3; sectionNumber++) { // loop through 2 sections
-      const sectionTeam = team.filter(function(el){ return el.sections.indexOf(sectionNumber) >= 0; });
-      const sectionSongList = new SongList([]);
-      let remainingTime = 30 * 60;
-
-      let usersWithNoSuitableSong = 0;
-      while (usersWithNoSuitableSong < sectionTeam.length) {
-        for (let jj = 0; jj < sectionTeam.length; jj++){
-          const currentUsersSongList = userSongs[sectionTeam[jj].name];
-          const startingIndex = currentUsersSongList.pointerIndex;
-          let newIndex = -1;
-          while (currentUsersSongList.currentSong().durationSeconds > remainingTime && startingIndex !== newIndex) {
-            currentUsersSongList.incrementPointerUnused();
-            newIndex = currentUsersSongList.pointerIndex;
-          }
-          if (currentUsersSongList.currentSong().durationSeconds <= remainingTime) {
-            sectionSongList.add(currentUsersSongList.currentSong());
-            remainingTime -= currentUsersSongList.currentSong().durationSeconds;
-            currentUsersSongList.useSong();
-          } else {
-            usersWithNoSuitableSong++;
-          }
-          currentUsersSongList.resetPointer();
-        }
-      }
-
-      this.songLists[sectionNumber] = sectionSongList;
-    }
-    return this.songLists;
+    return userSongs;
   }
 
-  // removeByIndex(index: number) {
-  //   this.songs.splice(index, 1);
-  // }
+  private createNextSectionSongList(userSongs, sectionTeam): SongList {
+    const sectionSongList = new SongList([]);
+    let remainingTime = 30 * 60;
+
+    let usersWithNoSuitableSong = 0;
+
+    while (usersWithNoSuitableSong < sectionTeam.length) {
+      for (let jj = 0; jj < sectionTeam.length; jj++){
+        const currentUsersSongList = userSongs[sectionTeam[jj].name];
+        const startingIndex = currentUsersSongList.pointerIndex;
+        let newIndex = -1;
+        while (currentUsersSongList.currentSong().durationSeconds > remainingTime && startingIndex !== newIndex) {
+          currentUsersSongList.incrementPointerUnused();
+          newIndex = currentUsersSongList.pointerIndex;
+        }
+        if (currentUsersSongList.currentSong().durationSeconds <= remainingTime) {
+          sectionSongList.add(currentUsersSongList.currentSong());
+          remainingTime -= currentUsersSongList.currentSong().durationSeconds;
+          currentUsersSongList.useSong();
+        } else {
+          usersWithNoSuitableSong++;
+        }
+        currentUsersSongList.resetPointer();
+      }
+    }
+    return sectionSongList;
+  }
 
   loadTestData() {
     this.songs = [];

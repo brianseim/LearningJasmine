@@ -2,7 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { SongService } from './song.service';
 import { Song } from '../model/song';
-import {TeamMemberService} from './team-member.service';
+import { TeamMemberService } from './team-member.service';
 
 describe('SongService', () => {
   beforeEach(() => {
@@ -24,17 +24,6 @@ describe('SongService', () => {
     service.add(s);
     expect(service.songs.length).toBe(1);
   }));
-
-  // it('should not contain the song removed by index and still contain 2 songs', inject([SongService], (service: SongService) => {
-  //   service.add(new Song('Song1', 'Artist1', '3:25', 'name'));
-  //   service.add(new Song('Song2', 'Artist2', '3:25', 'name'));
-  //   service.add(new Song('Song3', 'Artist3', '3:25', 'name'));
-  //   service.removeByIndex(1);
-  //   expect(service.songs.filter(function(el){
-  //     return el.name === 'Song2';
-  //   }).length).toBe(0);
-  //   expect(service.songs.length).toBe(2);
-  // }));
 
   it('should not contain the song removed by object and still contain 2 songs', inject([SongService], (service: SongService) => {
     service.add(new Song('Song1', 'Artist1', '3:25', 'name'));

@@ -7,10 +7,10 @@ import { RequirementsComponent } from './pages/requirements/requirements.compone
 import { SongEntryComponent } from './pages/song-entry/song-entry.component';
 import { SongListsComponent } from './pages/song-lists/song-lists.component';
 
-import {RouterModule, Routes} from '@angular/router';
-import {FormsModule} from '@angular/forms';
-import {TeamMemberService} from './services/team-member.service';
-import {SongService} from './services/song.service';
+import { RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { TeamMemberService } from './services/team-member.service';
+import { SongService } from './services/song.service';
 
 const appRoutes: Routes = [
   { path: 'requirements', component: RequirementsComponent },
