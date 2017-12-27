@@ -2,16 +2,29 @@ import { Injectable } from '@angular/core';
 import {Song} from '../model/song';
 import {SongList} from '../model/song-list';
 import {TeamMember} from '../model/team-member';
+import {Observable} from 'rxjs/Observable';
+import {of} from 'rxjs/observable/of';
 
 @Injectable()
 export class SongService {
-  songs: Song[] = [];
+  private songs: Song[] = [];
   songLists: SongList[] = [];
 
   constructor() { }
 
+  getSongs(): Observable<Song[]> {
+    return of(this.songs);
+  }
+
   add(song: Song): void {
     this.songs.push(song);
+  }
+
+  updateSong(newSong: Song, oldSong: Song) {
+    const index = this.songs.indexOf(oldSong);
+    if (index >= 0) {
+      this.songs[index] = newSong;
+    }
   }
 
   remove(song: Song): void {
@@ -76,21 +89,21 @@ export class SongService {
 
   loadTestData() {
     this.songs = [];
-    this.add(new Song('When I Come Around', 'Green Day', '3:25', 'Johnny'));
-    this.add(new Song('Otherside', 'Red Hot Chili Peppers', '4:23', 'Johnny'));
-    this.add(new Song('Good', 'Better Than Ezra', '3:14', 'Johnny'));
-    this.add(new Song('Last Kiss', 'Pearl Jam', '3:55', 'Johnny'));
-    this.add(new Song('Santa Monica', 'Everclear', '4:12', 'Johnny'));
-    this.add(new Song('Out of My Head', 'Fastball', '4:15', 'Clint'));
-    this.add(new Song('Cumbersome', 'Seven Mary Three', '3:10', 'Clint'));
-    this.add(new Song('Low', 'Cracker', '4:30', 'Clint'));
-    this.add(new Song('Fluorescent Adolescent', 'Arctic Monkeys', '5:00', 'Clint'));
-    this.add(new Song('Steady as She Goes', 'The Raconteurs', '3:45', 'Clint'));
-    this.add(new Song('Last Nite', 'The Strokes', '4:25', 'Lisa'));
-    this.add(new Song('Lydia', 'Highly Suspect', '4:44', 'Lisa'));
-    this.add(new Song('Big Me', 'Foo Fighters', '2:20', 'Lisa'));
-    this.add(new Song('Bleed American', 'Jimmy Eat World', '3:32', 'Lisa'));
-    this.add(new Song('Creep', 'Stone Temple Pilots', '5:15', 'Lisa'));
-    this.add(new Song('Come As You Are', 'Nirvana', '5:03', 'Lisa'));
+    this.songs.push(new Song('When I Come Around', 'Green Day', '3:25', 'Johnny'));
+    this.songs.push(new Song('Otherside', 'Red Hot Chili Peppers', '4:23', 'Johnny'));
+    this.songs.push(new Song('Good', 'Better Than Ezra', '3:14', 'Johnny'));
+    this.songs.push(new Song('Last Kiss', 'Pearl Jam', '3:55', 'Johnny'));
+    this.songs.push(new Song('Santa Monica', 'Everclear', '4:12', 'Johnny'));
+    this.songs.push(new Song('Out of My Head', 'Fastball', '4:15', 'Clint'));
+    this.songs.push(new Song('Cumbersome', 'Seven Mary Three', '3:10', 'Clint'));
+    this.songs.push(new Song('Low', 'Cracker', '4:30', 'Clint'));
+    this.songs.push(new Song('Fluorescent Adolescent', 'Arctic Monkeys', '5:00', 'Clint'));
+    this.songs.push(new Song('Steady as She Goes', 'The Raconteurs', '3:45', 'Clint'));
+    this.songs.push(new Song('Last Nite', 'The Strokes', '4:25', 'Lisa'));
+    this.songs.push(new Song('Lydia', 'Highly Suspect', '4:44', 'Lisa'));
+    this.songs.push(new Song('Big Me', 'Foo Fighters', '2:20', 'Lisa'));
+    this.songs.push(new Song('Bleed American', 'Jimmy Eat World', '3:32', 'Lisa'));
+    this.songs.push(new Song('Creep', 'Stone Temple Pilots', '5:15', 'Lisa'));
+    this.songs.push(new Song('Come As You Are', 'Nirvana', '5:03', 'Lisa'));
   }
 }

@@ -8,4 +8,4 @@
   <i class="fa fa-remove" aria-hidden="true" (click)="delete(song);"></i>
 </div>
 
-<app-song-edit [song]="song" *ngIf="editing" (cancelled)="onCancel($event)" (update)="updateSong($event)"></app-song-edit>
+<app-song-edit [song]="song" *ngIf="editing" (cancelled)="onCancel($event)" (saved)="onSave($event)"></app-song-edit>

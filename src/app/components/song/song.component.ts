@@ -15,11 +15,19 @@ export class SongComponent {
   constructor() { }
 
   delete(song) {
-    this.deleted.emit(song);
+    // todo get this to be testable or use a different approach // if (confirm('Are you sure you want to delete ' + song.name + '?')) {
+      this.deleted.emit(song);
+    // }
   }
 
   editForm() {
     this.editing = !this.editing;
+  }
+
+  onSave(e) {
+    this.editing = false;
+    this.updated.emit(e);
+    // this.song = e;
   }
 
   onCancel(e) {

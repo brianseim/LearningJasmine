@@ -48,17 +48,17 @@
       <span class="invalid-feedback" *ngIf="songForm.get('duration').errors.required">
         Please enter a song duration.
       </span>
-      <span class="invalid-feedback" *ngIf="songForm.get('duration').errors.minlength">
-        The duration must be 4 in this format 0:00.
+      <span class="invalid-feedback" *ngIf="songForm.get('duration').errors.pattern">
+        The duration must be in this format 0:00.
       </span>
       <span class="invalid-feedback"
-            *ngIf="!songForm.get('duration').errors.minlength && !songForm.get('duration').errors.required">
+            *ngIf="!songForm.get('duration').errors.pattern && !songForm.get('duration').errors.required">
         Duration error.
       </span>
     </span>
     <input type="text" id="duration" class="form-control" placeholder="Song duration"
            formControlName="duration"
-           required minlength="4" maxlength="4"/>
+           pattern="^[0-9]:[0-5][0-9]$"/>
     </div>
 
     <div class="form-group mb-2 mr-sm-2 mb-sm-0">

@@ -11,28 +11,45 @@ import {TeamMember} from '../../model/team-member';
 })
 export class SongEntryComponent implements OnInit {
   title = 'Song Management Form';
+  adding = false;
   songs: Song[] = [];
   team: TeamMember[] = [];
   constructor(private songService: SongService, private teamMemberService: TeamMemberService) { }
 
   ngOnInit() {
-    this.songs = this.songService.songs; // TODO make observable.
+    this.getSongs();
     this.team = this.teamMemberService.members; // todo make observable.
   }
 
   loadTestData() {
     this.songService.loadTestData();
+    this.getSongs();
     this.teamMemberService.loadTestData();
-    this.songs = this.songService.songs; // TODO make observable.
     this.team = this.teamMemberService.members; // todo make observable.
   }
 
-  onDeleted(e) {
-    alert('deleted');
-    console.log('deleted');
+  getSongs(): void {
+    this.songService.getSongs().subscribe(songs => this.songs = songs);
   }
 
   addSong() {
-    this.songs.push(new Song());
+    this.adding = true;
+  }
+
+  onSave(e) {
+    this.songService.add(e);
+    this.adding = false;
+  }
+
+  onUpdated(e, oldsong: Song){
+    this.songService.updateSong(e, oldsong);
+  }
+
+  onDeleted(e) {
+    this.songService.remove(e);
+  }
+
+  onCancelAdd(){
+    this.adding = false;
   }
 }
