@@ -4,6 +4,8 @@ import { DebugElement } from '@angular/core';
 
 import { SongComponent } from './song.component';
 import {Song} from '../../model/song';
+import {SongEditComponent} from '../song-edit/song-edit.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 describe('SongComponent', () => {
   let component: SongComponent;
@@ -13,7 +15,8 @@ describe('SongComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SongComponent ]
+      imports: [ ReactiveFormsModule ],
+      declarations: [ SongComponent, SongEditComponent ]
     })
     .compileComponents();
   }));
@@ -55,8 +58,18 @@ describe('SongComponent', () => {
   it('should raise delete event when delete icon clicked', () => {
     let deletedSong: Song;
     component.deleted.subscribe((song: Song) => deletedSong = song);
-    const deleteIcon = songEl.nativeElement.querySelector('.fa-remove');
-    deleteIcon.triggerEventHandler('click', null);
+    // const deleteIcon = songEl.nativeElement.querySelector('.fa-remove');
+    // deleteIcon.triggerEventHandler('click', null);
+    fixture.debugElement.query(By.css('.fa-remove')).triggerEventHandler('click', null);
     expect(deletedSong).toBe(expectedSong);
+  });
+
+  it('should initially show the song view', () =>{
+    expect(component.editing).toEqual(false);
+  });
+
+  it('should show edit view after pencil icon clicked', () => {
+    fixture.debugElement.query(By.css('.fa-pencil')).triggerEventHandler('click', null);
+    expect(component.editing).toEqual(true);
   });
 });

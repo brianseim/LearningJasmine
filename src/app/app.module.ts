@@ -8,10 +8,12 @@ import { SongEntryComponent } from './pages/song-entry/song-entry.component';
 import { SongListsComponent } from './pages/song-lists/song-lists.component';
 
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { TeamMemberService } from './services/team-member.service';
 import { SongService } from './services/song.service';
+
 import { SongComponent } from './components/song/song.component';
+import { SongEditComponent } from './components/song-edit/song-edit.component';
 
 const appRoutes: Routes = [
   { path: 'requirements', component: RequirementsComponent },
@@ -28,12 +30,13 @@ const appRoutes: Routes = [
     RequirementsComponent,
     SongEntryComponent,
     SongListsComponent,
-    SongComponent
+    SongComponent,
+    SongEditComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes, {enableTracing: true}),
-    FormsModule
+    ReactiveFormsModule
   ],
   providers: [SongService, TeamMemberService],
   bootstrap: [AppComponent]

@@ -7,3 +7,29 @@
 .fa.fa-pencil{
   cursor: pointer;
 }
+
+.form-group{
+  position: relative;
+}
+input.ng-invalid{
+  border:2px solid #ff0000;
+  background-color: #ffd8d8;
+}
+
+span.invalid-feedback{
+  display:inline-block;
+  padding-right: 10px;
+}
+
+span.help-block{
+  position: absolute;
+  top: 39px;
+  left: 5px;
+  background-color: #ffd8d8;
+  padding: 0 5px;
+  margin: 0;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border: 1px solid red;
+  margin-right: 5px;
+}

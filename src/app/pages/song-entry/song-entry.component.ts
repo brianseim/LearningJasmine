@@ -26,4 +26,13 @@ export class SongEntryComponent implements OnInit {
     this.songs = this.songService.songs; // TODO make observable.
     this.team = this.teamMemberService.members; // todo make observable.
   }
+
+  onDeleted(e) {
+    alert('deleted');
+    console.log('deleted');
+  }
+
+  addSong() {
+    this.songs.push(new Song());
+  }
 }

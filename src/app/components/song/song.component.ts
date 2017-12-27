@@ -8,7 +8,7 @@ import {Song} from '../../model/song';
 })
 export class SongComponent {
   @Input() song: Song;
-  @Input() editing: boolean = false;
+  @Input() editing = false;
   @Output() updated = new EventEmitter<Song>();
   @Output() deleted = new EventEmitter<Song>();
 
@@ -16,5 +16,13 @@ export class SongComponent {
 
   delete(song) {
     this.deleted.emit(song);
+  }
+
+  editForm() {
+    this.editing = !this.editing;
+  }
+
+  onCancel(e) {
+    this.editing = false;
   }
 }

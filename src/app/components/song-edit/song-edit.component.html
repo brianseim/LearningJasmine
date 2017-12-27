@@ -1,0 +1,87 @@
+<div class="alert alert-primary" role="alert">
+  <form (ngSubmit)="save()" id="songForm" [formGroup]="songForm" class="form-inline" novalidate>
+    <div class="form-group mb-2 mr-sm-2 mb-sm-0">
+    <label for="name" class="sr-only">Name</label>
+    <span class="help-block"
+          *ngIf="(songForm.get('name').touched || songForm.get('name').dirty) && songForm.get('name').invalid">
+      <span class="invalid-feedback" *ngIf="songForm.get('name').errors.required">
+        Please enter a song name.
+      </span>
+      <span class="invalid-feedback" *ngIf="songForm.get('name').errors.minlength">
+        The song name must be 2 characters or longer.
+      </span>
+      <span class="invalid-feedback"
+            *ngIf="!songForm.get('name').errors.minlength && !songForm.get('name').errors.required">
+        Song name error.
+      </span>
+    </span>
+    <input type="text" id="name" class="form-control" placeholder="Song Name"
+           formControlName="name"
+           required
+           minlength="2"/>
+    </div>
+
+    <div class="form-group mb-2 mr-sm-2 mb-sm-0">
+    <label for="artist" class="sr-only">Artist</label>
+    <span class="help-block"
+          *ngIf="(songForm.get('artist').touched || songForm.get('artist').dirty) && songForm.get('artist').invalid">
+      <span class="invalid-feedback" *ngIf="songForm.get('artist').errors.required">
+        Please enter an artist.
+      </span>
+      <span class="invalid-feedback" *ngIf="songForm.get('artist').errors.minlength">
+        The artist must be 2 characters or longer.
+      </span>
+      <span class="invalid-feedback"
+            *ngIf="!songForm.get('artist').errors.minlength && !songForm.get('artist').errors.required">
+        Artist error.
+      </span>
+    </span>
+    <input type="text" id="artist" class="form-control" placeholder="Song Artist"
+           formControlName="artist" required
+           minlength="2"/>
+    </div>
+
+    <div class="form-group mb-2 mr-sm-2 mb-sm-0">
+    <label for="duration" class="sr-only">Duration (0:00)</label>
+    <span class="help-block"
+          *ngIf="(songForm.get('duration').touched || songForm.get('duration').dirty) && songForm.get('duration').invalid">
+      <span class="invalid-feedback" *ngIf="songForm.get('duration').errors.required">
+        Please enter a song duration.
+      </span>
+      <span class="invalid-feedback" *ngIf="songForm.get('duration').errors.minlength">
+        The duration must be 4 in this format 0:00.
+      </span>
+      <span class="invalid-feedback"
+            *ngIf="!songForm.get('duration').errors.minlength && !songForm.get('duration').errors.required">
+        Duration error.
+      </span>
+    </span>
+    <input type="text" id="duration" class="form-control" placeholder="Song duration"
+           formControlName="duration"
+           required minlength="4" maxlength="4"/>
+    </div>
+
+    <div class="form-group mb-2 mr-sm-2 mb-sm-0">
+    <label for="teamMember" class="sr-only"></label>
+    <span class="help-block"
+          *ngIf="(songForm.get('teamMember').touched || songForm.get('teamMember').dirty) && songForm.get('teamMember').invalid">
+      <span class="invalid-feedback" *ngIf="songForm.get('teamMember').errors.required">
+        Please enter a team member.
+      </span>
+      <span class="invalid-feedback" *ngIf="songForm.get('teamMember').errors.minlength">
+        The team member must be 2 characters or longer.
+      </span>
+      <span class="invalid-feedback"
+            *ngIf="!songForm.get('teamMember').errors.minlength && !songForm.get('teamMember').errors.required">
+        team member error.
+      </span>
+    </span>
+    <input type="text" id="teamMember" class="form-control" placeholder="Team Member"
+           formControlName="teamMember"
+           required minlength="2"/>
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="save();" [disabled]="!songForm.valid">Save</button>
+
+    <button type="button" class="btn btn-default" (click)="cancel();">Cancel</button>
+  </form>
+</div>

@@ -4,6 +4,8 @@ import { SongEntryComponent } from './song-entry.component';
 import {SongService} from '../../services/song.service';
 import {TeamMemberService} from '../../services/team-member.service';
 import {SongComponent} from '../../components/song/song.component';
+import {SongEditComponent} from '../../components/song-edit/song-edit.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 describe('SongEntryComponent', () => {
   let component: SongEntryComponent;
@@ -18,7 +20,8 @@ describe('SongEntryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SongEntryComponent, SongComponent ],
+      imports: [ ReactiveFormsModule ],
+      declarations: [ SongEntryComponent, SongComponent, SongEditComponent ],
       providers: [ {provide: SongService, useValue: songServiceStub},
          {provide: TeamMemberService, useValue: teamMemberServiceStub}]
     })

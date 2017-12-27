@@ -1,15 +1,23 @@
 <h1>{{title}}</h1>
 <button (click)="loadTestData();" class="btn btn-default">Load Test Data</button>
-<h2 *ngIf="songs.length">Songs</h2>
-<ul>
-  <li *ngFor="let song of songs">
-    <!--{{song.name}} - {{song.artist}} {{song.getDuration()}} added by {{song.teamMember}}-->
-    <app-song [song]="song" (updated)="songUpdated($event)"></app-song>
-  </li>
-</ul>
+<h2>Songs</h2>
+<div *ngIf="songs && songs.length">
+  <ul>
+    <li *ngFor="let song of songs">
+      <!--{{song.name}} - {{song.artist}} {{song.getDuration()}} added by {{song.teamMember}}-->
+      <app-song [song]="song" (updated)="songUpdated($event)" (deleted)="onDeleted($event)"></app-song>
+    </li>
+  </ul>
+  <button (click)="addSong()"><i class="fa fa-plus"></i> Add Song</button>
+  <h2 *ngIf="team.length">Team Members & Sections</h2>
+  <ul>
+    <li *ngFor="let member of team">{{member.name}} is in section{{((member.sections && member.sections.length>1)? "s":
+      "")}}: {{member.sections.join(", ")}}
+    </li>
+  </ul>
+</div>
 
-<h2 *ngIf="team.length">Team Members & Sections</h2>
-<ul>
-  <li *ngFor="let member of team">{{member.name}} is in section{{((member.sections && member.sections.length>1)? "s": "")}}: {{member.sections.join(", ")}}</li>
-</ul>
-<!--{{songs | json}}-->
+<div *ngIf="(!songs || songs.length==0)">
+  <button (click)="addSong()" class="btn btn-success"><i class="fa fa-plus"></i> Add Song</button>
+</div>
+
