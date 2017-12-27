@@ -23,11 +23,13 @@ describe('RequirementsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
   it(`should have as title 'Requirements'`, async(() => {
     const fixture = TestBed.createComponent(RequirementsComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('Requirements');
   }));
+
   it('should render title in a h1 tag', async(() => {
     const fixture = TestBed.createComponent(RequirementsComponent);
     fixture.detectChanges();

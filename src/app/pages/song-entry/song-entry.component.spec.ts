@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SongEntryComponent } from './song-entry.component';
 import {SongService} from '../../services/song.service';
 import {TeamMemberService} from '../../services/team-member.service';
+import {SongComponent} from '../../components/song/song.component';
 
 describe('SongEntryComponent', () => {
   let component: SongEntryComponent;
@@ -17,7 +18,7 @@ describe('SongEntryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SongEntryComponent ],
+      declarations: [ SongEntryComponent, SongComponent ],
       providers: [ {provide: SongService, useValue: songServiceStub},
          {provide: TeamMemberService, useValue: teamMemberServiceStub}]
     })
@@ -33,11 +34,13 @@ describe('SongEntryComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
   it(`should have as title 'Song Management Form'`, async(() => {
     const fixture = TestBed.createComponent(SongEntryComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('Song Management Form');
   }));
+
   it('should render title in a h1 tag', async(() => {
     const fixture = TestBed.createComponent(SongEntryComponent);
     fixture.detectChanges();

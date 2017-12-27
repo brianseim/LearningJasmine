@@ -11,6 +11,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { TeamMemberService } from './services/team-member.service';
 import { SongService } from './services/song.service';
+import { SongComponent } from './components/song/song.component';
 
 const appRoutes: Routes = [
   { path: 'requirements', component: RequirementsComponent },
@@ -26,7 +27,8 @@ const appRoutes: Routes = [
     PageNotFoundComponent,
     RequirementsComponent,
     SongEntryComponent,
-    SongListsComponent
+    SongListsComponent,
+    SongComponent
   ],
   imports: [
     BrowserModule,

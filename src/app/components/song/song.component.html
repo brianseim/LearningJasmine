@@ -1,0 +1,13 @@
+<div class="songView" *ngIf="!editing">
+  <span class="name">{{song.name}}</span> -
+  <span class="artist">{{song.artist}}</span>
+  <span class="duration">{{song.getDuration()}}</span>
+  added by
+  <span class="teamMember">{{song.teamMember}}</span>
+  <i class="fa fa-pencil" aria-hidden="true" (click)="editForm();"></i>
+  <i class="fa fa-remove" aria-hidden="true" (click)="delete(song);"></i>
+</div>
+
+<div class="editSong" *ngIf="editing">
+  Editing Song
+</div>
