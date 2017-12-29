@@ -1,23 +1,33 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SongListsComponent } from './song-lists.component';
-import {TeamMemberService} from '../../services/team-member.service';
-import {SongService} from '../../services/song.service';
+import { TeamMemberService } from '../../services/team-member.service';
+import { SongService } from '../../services/song.service';
+import {TeamMember} from '../../model/team-member';
+import {SongList} from '../../model/song-list';
 
 describe('SongListsComponent', () => {
   let component: SongListsComponent;
   let fixture: ComponentFixture<SongListsComponent>;
-  class SongServiceStub {
-  }
+  const songServiceStub = {
+    generateSongLists: function() { return [
+      new SongList([]),
+      new SongList([])
+    ]; }
+  };
 
   const teamMemberServiceStub = {
-    members: []
+    members: [
+      new TeamMember('Johnny', [1]),
+      new TeamMember('Clint', [1, 2]),
+      new TeamMember('Lisa', [1, 2]),
+    ]
   };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ SongListsComponent ],
-      providers: [ {provide: SongService, useClass: SongServiceStub},
+      providers: [ {provide: SongService, useValue: songServiceStub},
         {provide: TeamMemberService, useValue: teamMemberServiceStub}]
     })
     .compileComponents();

@@ -37,7 +37,7 @@ describe('SongService w/o Test Data', () => {
 
 describe('SongService with Test Data', () => {
   let service: SongService;
-  const teamServiceStub = {
+  const teamMemberServiceStub = {
     members: [
       new TeamMember('Johnny', [1]),
       new TeamMember('Clint', [1, 2]),
@@ -86,13 +86,13 @@ describe('SongService with Test Data', () => {
   });
 
   it('song list output', () => {
-    const songLists = service.generateSongLists(teamServiceStub.members);
+    const songLists = service.generateSongLists(teamMemberServiceStub.members);
     expect(songLists[1].songs.length).toBe(8);
     expect(songLists[2].songs.length).toBe(7);
   });
 
   it('song list result should match expected result', () => {
-    const songLists = service.generateSongLists(teamServiceStub.members);
+    const songLists = service.generateSongLists(teamMemberServiceStub.members);
     expect(songLists).toEqual(TEST_SONG_RESULTS);
   });
 });
