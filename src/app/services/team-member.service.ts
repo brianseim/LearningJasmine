@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {TeamMember} from '../model/team-member';
+import {TEST_TEAM} from '../data/testteam';
 
 @Injectable()
 export class TeamMemberService {
@@ -7,22 +8,19 @@ export class TeamMemberService {
 
   constructor() { }
 
-  add(newMember: TeamMember){
+  add(newMember: TeamMember) {
     this.members.push(newMember);
   }
 
-  remove(removeMember: TeamMember){
+  remove(removeMember: TeamMember) {
     this.members.splice(this.members.indexOf(removeMember), 1);
   }
 
-  loadTestData(){
-    this.members = [];
-    this.add(new TeamMember('Johnny', [1]));
-    this.add(new TeamMember('Clint', [1, 2]));
-    this.add(new TeamMember('Lisa', [1, 2]));
+  loadTestData() {
+    this.members = TEST_TEAM;
   }
 
-  getMembersForSection(sectionNumber: number){
+  getMembersForSection(sectionNumber: number) {
     return this.members.filter(function(el){
       return el.sections.indexOf(sectionNumber) >= 0;
     });

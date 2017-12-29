@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {SongService} from '../../services/song.service';
-import {TeamMemberService} from '../../services/team-member.service';
-import {Song} from '../../model/song';
-import {TeamMember} from '../../model/team-member';
+import { SongService } from '../../services/song.service';
+import { TeamMemberService } from '../../services/team-member.service';
+import { Song } from '../../model/song';
+import { TeamMember } from '../../model/team-member';
 
 @Component({
   selector: 'app-song-entry',
@@ -41,7 +41,7 @@ export class SongEntryComponent implements OnInit {
     this.adding = false;
   }
 
-  onUpdated(e, oldsong: Song){
+  onUpdated(e, oldsong: Song) {
     this.songService.updateSong(e, oldsong);
   }
 
@@ -49,7 +49,7 @@ export class SongEntryComponent implements OnInit {
     this.songService.remove(e);
   }
 
-  onCancelAdd(){
+  onCancelAdd() {
     this.adding = false;
   }
 }

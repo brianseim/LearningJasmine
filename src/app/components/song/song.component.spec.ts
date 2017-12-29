@@ -56,7 +56,7 @@ describe('SongComponent', () => {
   });
 
   it('should raise delete event when delete icon clicked', () => {
-    let deletedSong: Song;
+    let deletedSong: Song = new Song();
     component.deleted.subscribe((song: Song) => deletedSong = song);
     // const deleteIcon = songEl.nativeElement.querySelector('.fa-remove');
     // deleteIcon.triggerEventHandler('click', null);
@@ -64,7 +64,7 @@ describe('SongComponent', () => {
     expect(deletedSong).toBe(expectedSong);
   });
 
-  it('should initially show the song view', () =>{
+  it('should initially show the song view', () => {
     expect(component.editing).toEqual(false);
   });
 

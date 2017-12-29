@@ -4,6 +4,7 @@ import {SongList} from '../model/song-list';
 import {TeamMember} from '../model/team-member';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
+import {TEST_SONGS} from '../data/testsongs';
 
 @Injectable()
 export class SongService {
@@ -12,8 +13,48 @@ export class SongService {
 
   constructor() { }
 
+  private static createNextSectionSongList(userSongs, sectionTeam): SongList {
+    const sectionSongList = new SongList([]);
+    let remainingTime = 30 * 60;
+
+    let usersWithNoSuitableSong = 0;
+
+    while (usersWithNoSuitableSong < sectionTeam.length) {
+      for (let jj = 0; jj < sectionTeam.length; jj++) {
+        const currentUsersSongList = userSongs[sectionTeam[jj].name];
+        const startingIndex = currentUsersSongList.pointerIndex;
+        let newIndex = -1;
+        while (currentUsersSongList.currentSong().durationSeconds > remainingTime && startingIndex !== newIndex) {
+          currentUsersSongList.incrementPointerUnused();
+          newIndex = currentUsersSongList.pointerIndex;
+        }
+        if (currentUsersSongList.currentSong().durationSeconds <= remainingTime) {
+
+          const currentSong: Song = new Song();
+          Object.assign(currentSong, currentUsersSongList.currentSong());
+          currentSong.used = false; // reset flag not used in the list.
+          sectionSongList.add(currentSong);
+          remainingTime -= currentSong.durationSeconds;
+          currentUsersSongList.useSong();
+        } else {
+          usersWithNoSuitableSong++;
+        }
+        currentUsersSongList.resetPointer();
+      }
+    }
+    return sectionSongList;
+  }
+
   getSongs(): Observable<Song[]> {
     return of(this.songs);
+  }
+
+  getSongListLength(): number {
+    return this.songs.length;
+  }
+
+  isSongInList(song: Song): boolean { // maybe in a future iteration only compare name and artist?
+    return this.songs.indexOf(song) >= 0;
   }
 
   add(song: Song): void {
@@ -38,13 +79,15 @@ export class SongService {
 
     // Assumption: there are only two sections - if this were to change we should make a section model...
     for (let sectionNumber = 1; sectionNumber < 3; sectionNumber++) { // loop through 2 sections
-      const teamForSection = team.filter(function(el){ return el.sections.indexOf(sectionNumber) >= 0; }); // who is present in this section?
-      this.songLists[sectionNumber] = this.createNextSectionSongList(userSongs, teamForSection);
+      const teamForSection = team.filter(function(el){
+        return el.sections.indexOf(sectionNumber) >= 0;
+      }); // who is present in this section?
+      this.songLists[sectionNumber] = SongService.createNextSectionSongList(userSongs, teamForSection);
     }
     return this.songLists;
   }
 
-  getTeamMemberSongList(name: string){
+  getTeamMemberSongList(name: string) {
     return this.songs.filter(function(el){
       return el.teamMember === name;
     });
@@ -59,51 +102,7 @@ export class SongService {
     return userSongs;
   }
 
-  private createNextSectionSongList(userSongs, sectionTeam): SongList {
-    const sectionSongList = new SongList([]);
-    let remainingTime = 30 * 60;
-
-    let usersWithNoSuitableSong = 0;
-
-    while (usersWithNoSuitableSong < sectionTeam.length) {
-      for (let jj = 0; jj < sectionTeam.length; jj++){
-        const currentUsersSongList = userSongs[sectionTeam[jj].name];
-        const startingIndex = currentUsersSongList.pointerIndex;
-        let newIndex = -1;
-        while (currentUsersSongList.currentSong().durationSeconds > remainingTime && startingIndex !== newIndex) {
-          currentUsersSongList.incrementPointerUnused();
-          newIndex = currentUsersSongList.pointerIndex;
-        }
-        if (currentUsersSongList.currentSong().durationSeconds <= remainingTime) {
-          sectionSongList.add(currentUsersSongList.currentSong());
-          remainingTime -= currentUsersSongList.currentSong().durationSeconds;
-          currentUsersSongList.useSong();
-        } else {
-          usersWithNoSuitableSong++;
-        }
-        currentUsersSongList.resetPointer();
-      }
-    }
-    return sectionSongList;
-  }
-
   loadTestData() {
-    this.songs = [];
-    this.songs.push(new Song('When I Come Around', 'Green Day', '3:25', 'Johnny'));
-    this.songs.push(new Song('Otherside', 'Red Hot Chili Peppers', '4:23', 'Johnny'));
-    this.songs.push(new Song('Good', 'Better Than Ezra', '3:14', 'Johnny'));
-    this.songs.push(new Song('Last Kiss', 'Pearl Jam', '3:55', 'Johnny'));
-    this.songs.push(new Song('Santa Monica', 'Everclear', '4:12', 'Johnny'));
-    this.songs.push(new Song('Out of My Head', 'Fastball', '4:15', 'Clint'));
-    this.songs.push(new Song('Cumbersome', 'Seven Mary Three', '3:10', 'Clint'));
-    this.songs.push(new Song('Low', 'Cracker', '4:30', 'Clint'));
-    this.songs.push(new Song('Fluorescent Adolescent', 'Arctic Monkeys', '5:00', 'Clint'));
-    this.songs.push(new Song('Steady as She Goes', 'The Raconteurs', '3:45', 'Clint'));
-    this.songs.push(new Song('Last Nite', 'The Strokes', '4:25', 'Lisa'));
-    this.songs.push(new Song('Lydia', 'Highly Suspect', '4:44', 'Lisa'));
-    this.songs.push(new Song('Big Me', 'Foo Fighters', '2:20', 'Lisa'));
-    this.songs.push(new Song('Bleed American', 'Jimmy Eat World', '3:32', 'Lisa'));
-    this.songs.push(new Song('Creep', 'Stone Temple Pilots', '5:15', 'Lisa'));
-    this.songs.push(new Song('Come As You Are', 'Nirvana', '5:03', 'Lisa'));
+    this.songs = TEST_SONGS;
   }
 }

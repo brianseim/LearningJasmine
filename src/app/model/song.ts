@@ -1,5 +1,5 @@
 export class Song {
-  constructor(name: string= '', artist: string= '', duration: string= '0:00', teamMember: string= ''){
+  constructor(name: string= '', artist: string= '', duration: string= '0:00', teamMember: string= '') {
     this.name = name;
     this.artist = artist;
     this.setDuration(duration);
@@ -27,7 +27,7 @@ export class Song {
       const parts = rx.exec(strTime);
       const mins = +parts[1];
       const secs = +parts[2];
-      if (parts.length === 3 && !isNaN(mins) && !isNaN(secs)){
+      if (parts.length === 3 && !isNaN(mins) && !isNaN(secs)) {
         this.durationSeconds = (mins * 60) + secs;
         return;
       }
