@@ -1,7 +1,7 @@
 import { TeamMemberService } from './team-member.service';
 import {TeamMember} from '../model/team-member';
 
-describe('TeamMemberService w/o TestBed', () => {
+describe('TeamMemberService', () => {
   let service: TeamMemberService;
 
   beforeEach(() => {
