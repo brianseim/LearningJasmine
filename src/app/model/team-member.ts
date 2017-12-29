@@ -6,7 +6,7 @@ export class TeamMember {
   songs: Song[];
   sections: number[];
 
-  constructor(name: string, sections: number[]= []){
+  constructor(name: string, sections: number[]= []) {
     this.name = name;
     this.sections = sections;
   }

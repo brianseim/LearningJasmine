@@ -9,7 +9,7 @@ import {TEST_SONGS} from '../data/testsongs';
 @Injectable()
 export class SongService {
   private songs: Song[] = [];
-  songLists: SongList[] = [];
+  private songLists: SongList[] = [];
 
   constructor() { }
 

@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RequirementsComponent } from './requirements.component';
-import {AppComponent} from '../../app.component';
 
 describe('RequirementsComponent', () => {
   let component: RequirementsComponent;
@@ -25,15 +24,15 @@ describe('RequirementsComponent', () => {
   });
 
   it(`should have as title 'Requirements'`, async(() => {
-    const fixture = TestBed.createComponent(RequirementsComponent);
-    const app = fixture.debugElement.componentInstance;
+    const fixture2 = TestBed.createComponent(RequirementsComponent);
+    const app = fixture2.debugElement.componentInstance;
     expect(app.title).toEqual('Requirements');
   }));
 
   it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(RequirementsComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
+    const fixture3 = TestBed.createComponent(RequirementsComponent);
+    fixture3.detectChanges();
+    const compiled = fixture3.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('Requirements');
   }));
 });

@@ -48,7 +48,7 @@ export class SongList {
 
   resetPointer() {
     if (this.isAllUsed()) {
-      this.songs.map( (s) => { s.used = false; }); //reset used flag
+      this.songs.map( (s) => { s.used = false; }); // reset used flag
       this.pointerIndex = 0;
     } else {
       this.pointerIndex = this.songs.map( (s) => {
