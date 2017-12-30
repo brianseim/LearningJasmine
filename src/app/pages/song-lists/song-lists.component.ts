@@ -18,9 +18,16 @@ export class SongListsComponent implements OnInit {
 
   ngOnInit() {
     this.team = this.teamMemberService.members; // todo make observable.
-    this.songLists = this.songService.generateSongLists(this.team); // TODO make observable.
+    if (this.songLists.length === 0) {
+      this.createNextLists();
+    }
   }
 
+  createNextLists() {
+    if (this.team && this.team.length > 0) {
+      this.songLists = this.songService.generateSongLists(this.team);
+    }
+  }
 
   loadTestData() {
     this.songService.loadTestData();

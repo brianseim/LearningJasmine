@@ -14,11 +14,13 @@ import { SongService } from './services/song.service';
 
 import { SongComponent } from './components/song/song.component';
 import { SongEditComponent } from './components/song-edit/song-edit.component';
+import { TeamMemberComponent } from './pages/team-member/team-member.component';
 
 const appRoutes: Routes = [
   { path: 'requirements', component: RequirementsComponent },
   { path: 'song-entry', component: SongEntryComponent },
   { path: 'song-lists', component: SongListsComponent },
+  { path: 'team', component: TeamMemberComponent },
   { path: '', redirectTo: '/requirements', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -31,7 +33,8 @@ const appRoutes: Routes = [
     SongEntryComponent,
     SongListsComponent,
     SongComponent,
-    SongEditComponent
+    SongEditComponent,
+    TeamMemberComponent
   ],
   imports: [
     BrowserModule,

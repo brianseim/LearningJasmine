@@ -3,6 +3,13 @@
 <div *ngFor="let songlist of songLists; let i = index">
   <h2 *ngIf="songlist">Section {{i}} Song List</h2>
     <ol *ngIf="songlist">
-      <li *ngFor="let song of songlist.songs">{{song.name}} - {{song.artist}} </li>
+      <li *ngFor="let song of songlist.songs">
+        {{song.name}} - {{song.artist}}
+      </li>
     </ol>
 </div>
+<div *ngIf="songLists.length == 0">
+  <h2>No lists</h2>
+  <p>Go to: <a class="btn btn-primary" routerLink="/song-entry" routerLinkActive="active">Song Entry</a> to enter team member and song lists.</p>
+</div>
+
