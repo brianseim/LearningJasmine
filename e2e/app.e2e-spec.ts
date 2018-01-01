@@ -9,6 +9,6 @@ describe('orica App', () => {
 
   it('should display home page title "Requirements"', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Requirements');
+    expect(page.getHeading1Text()).toEqual('Requirements');
   });
 });

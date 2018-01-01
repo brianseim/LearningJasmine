@@ -33,4 +33,25 @@ describe('SongEditComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should raise a cancel event when cancel button clicked', () => {
+    let wasItCancelled = false;
+    component.cancelled.subscribe( () => wasItCancelled = true );
+    fixture.debugElement.query(By.css('#btnCancel')).triggerEventHandler('click', null);
+    expect(wasItCancelled).toBeTruthy();
+  });
+
+  it('should raise a save event when saved with correct data',
+    () => {
+   let song: Song = new Song();
+   const expectedSong2 = new Song('testSong', 'testArtist', '3:30', 'Jack');
+   component.saved.subscribe( (e) => song = e);
+   component.songForm.value.name = expectedSong2.name;
+   component.songForm.value.artist = expectedSong2.artist;
+   component.songForm.value.duration = expectedSong2.getDuration();
+   component.songForm.value.teamMember = expectedSong2.teamMember;
+
+   fixture.debugElement.query(By.css('#btnSave')).triggerEventHandler('click', null);
+   expect(song).toEqual(expectedSong2);
+  });
 });

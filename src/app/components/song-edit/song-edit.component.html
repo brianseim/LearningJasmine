@@ -80,8 +80,8 @@
            formControlName="teamMember"
            required minlength="2"/>
     </div>
-    <button type="submit" class="btn btn-primary" (click)="save();" [disabled]="!songForm.valid">Save</button>
+    <button id="btnSave" type="submit" class="btn btn-primary" (click)="save();" [disabled]="!songForm.valid">Save</button>
 
-    <button type="button" class="btn btn-default" (click)="cancel();">Cancel</button>
+    <button id="btnCancel" type="button" class="btn btn-default" (click)="cancel();">Cancel</button>
   </form>
 </div>

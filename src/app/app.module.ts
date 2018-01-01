@@ -15,6 +15,7 @@ import { SongService } from './services/song.service';
 import { SongComponent } from './components/song/song.component';
 import { SongEditComponent } from './components/song-edit/song-edit.component';
 import { TeamMemberComponent } from './pages/team-member/team-member.component';
+import { TeamMemberEditComponent } from './components/team-member-edit/team-member-edit.component';
 
 const appRoutes: Routes = [
   { path: 'requirements', component: RequirementsComponent },
@@ -34,7 +35,8 @@ const appRoutes: Routes = [
     SongListsComponent,
     SongComponent,
     SongEditComponent,
-    TeamMemberComponent
+    TeamMemberComponent,
+    TeamMemberEditComponent
   ],
   imports: [
     BrowserModule,

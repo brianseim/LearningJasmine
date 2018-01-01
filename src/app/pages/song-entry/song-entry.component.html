@@ -9,7 +9,7 @@
   </li>
 </ul>
 
-<button (click)="addSong()" *ngIf="!adding"><i class="fa fa-plus"></i> Add Song</button>
+<button id="btnAdd" (click)="addSong()" *ngIf="!adding"><i class="fa fa-plus"></i> Add Song</button>
 <app-song-edit *ngIf="adding" (cancelled)="onCancelAdd()" (saved)="onSave($event)"></app-song-edit>
 
 
