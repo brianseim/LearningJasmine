@@ -1,3 +1,4 @@
+///<reference path="../node_modules/protractor/built/index.d.ts"/>
 import { browser, by, element } from 'protractor';
 
 export class AppPage {
@@ -19,5 +20,13 @@ export class AppPage {
 
   presenceOf(css: string) {
     return element(by.css(css)).isPresent();
+  }
+
+  fillField(css: string, text: string) {
+    return element(by.css(css)).sendKeys(text);
+  }
+
+  getText(css: string) {
+    return element(by.css(css)).getText();
   }
 }

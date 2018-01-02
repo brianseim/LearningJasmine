@@ -19,7 +19,7 @@ describe('orica App - Manage Team', () => {
       expect(page.presenceOf('#btnAdd')).toBeFalsy();
     });
 
-  it('should show the Add Team Member form after clicking add Button',
+  it('should show the Add Team Member form after clicking add button',
     () => {
       page.navigateTo('/team');
       page.clickAddButton();
